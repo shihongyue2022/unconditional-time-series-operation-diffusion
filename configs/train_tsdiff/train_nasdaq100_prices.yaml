@@ -3,23 +3,21 @@ diffusion_config: diffusion_small_config
 normalization: mean
 use_features: False
 use_lags: True
-dataset: uber_tlc_hourly
-freq: H
-context_length: 336 # 360 for `D`
-prediction_length: 24 # 30 for `D`
+dataset: custom(/home/shihongyue/.gluonts/datasets/nasdaq100_prices)  # 指向你整理好的数据
+freq: B
+context_length: 96
+prediction_length: 24
 lr: 1.e-3
-init_skip: False
+init_skip: True
 gradient_clip_val: 0.5
 max_epochs: 10
 num_batches_per_epoch: 128
 batch_size: 64
-# Used only in callback,
-# the final evaluation uses 100 samples
 num_samples: 16
 sampler: ddpm
 sampler_params:
   guidance: quantile
-  scale: 2
+  scale: 8
 use_validation_set: True
 eval_every: 50
 device: cuda:0

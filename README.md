@@ -35,7 +35,13 @@ conda create --name tsdiff --yes python=3.8 && conda activate tsdiff
 * Install this package.
 ```sh
 pip install --editable "."
-```
+
+# 查看当前版本
+python -c "import pytorch_lightning as pl, rich; print('PL=', pl.__version__, 'rich=', rich.__version__)"
+
+# 降级到稳定组合（推荐先试这个）
+pip install "pytorch-lightning==1.9.5" "rich==13.3.5"
+
 
 > [!TIP]  
 > We have some updates in the `update` branch. If you're interested in testing out TSDiff or [training it on a custom dataset](https://github.com/amazon-science/unconditional-time-series-diffusion/issues/7), using the `update` branch maybe faster for training.
@@ -65,6 +71,10 @@ Example commands for forecasting with missing values:
 ```sh
 # Train TSDiff on the Uber dataset for the missing values experiment
 python bin/train_model.py -c configs/train_tsdiff/train_missing_uber_tlc.yaml
+
+python /home/shihongyue/unconditional-time-series-diffusion/bin/train_model.py -c /home/shihongyue/unconditional-time-series-diffusion/configs/train_tsdiff/train_nasdaq100_prices.yaml
+
+
 
 # Train TSDiff on the KDDCup dataset for the missing values experiment
 python bin/train_model.py -c configs/train_tsdiff/train_missing_kdd_cup.yaml
