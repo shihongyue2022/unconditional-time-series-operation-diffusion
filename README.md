@@ -80,6 +80,33 @@ python bin/train_cond_model.py -c configs/train_tsdiff-cond/missing_BM-E_kdd_cup
 ```
 Note that for TSDiff we train only one model and all the missing value scenarios are evaluated using the same unconditional model. However, for TSDiff-Cond, one model is trained per missingness scenario.
 
+### FourierDiffusion
+
+To train the FourierDiffusion variant set `model_type: fdiff` in the configuration. A minimal example configuration is provided in `configs/train_fdiff.yaml`:
+
+```yaml
+model: unconditional
+model_type: fdiff
+diffusion_config: diffusion_small_config
+normalization: mean
+use_features: False
+use_lags: False
+dataset: solar_nips
+freq: H
+context_length: 336
+prediction_length: 24
+```
+
+Example commands:
+
+```sh
+# Train FourierDiffusion
+python bin/train_model.py -c configs/train_fdiff.yaml
+
+# Evaluate a trained FourierDiffusion checkpoint
+python bin/guidance_experiment.py -c configs/guidance/guidance_solar.yaml --model_type fdiff --ckpt /path/to/ckpt
+```
+
 ### Evaluating Models
 The unconditional models trained above can be used for the following tasks.
 
