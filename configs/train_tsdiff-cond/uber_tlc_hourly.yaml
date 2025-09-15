@@ -9,7 +9,7 @@ freq: H
 gradient_clip_val: 0.5
 init_skip: false
 lr: 0.001
-max_epochs: 100
+max_epochs: 10
 model: conditional
 noise_observed: true
 normalization: mean

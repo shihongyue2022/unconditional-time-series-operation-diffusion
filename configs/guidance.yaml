@@ -13,7 +13,7 @@ sampler: ddpm
 sampler_params:
   guidance: quantile
   scale: 4
-num_samples: 100
+num_samples: 10
 setup: forecasting
 # The following key will be ignored,
 # if the setup is forecasting
