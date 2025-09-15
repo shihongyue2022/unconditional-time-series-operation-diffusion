@@ -1,0 +1,16 @@
+ckpt: dummy/path.ckpt 
+context_length: 96
+dataset: custom(/home/shihongyue/.gluonts/datasets/nasdaq100_prices)
+device: cuda:0
+diffusion_config: diffusion_small_config
+freq: B
+init_skip: true
+num_samples: 16
+prediction_length: 24
+sampler: ddpm
+sampler_params:
+  guidance: quantile
+  scale: 8
+setup: forecasting
+use_features: false
+use_lags: true

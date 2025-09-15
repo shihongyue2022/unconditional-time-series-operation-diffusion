@@ -1,0 +1,10 @@
+ckpt: dummy/nasdaq100.ckpt
+context_length: 96
+dataset: custom(/home/shihongyue/.gluonts/datasets/nasdaq100_prices)
+device: cuda:0
+diffusion_config: diffusion_small_config
+init_skip: true
+prediction_length: 24
+scaling_type: mean
+use_features: false
+use_lags: true

@@ -96,10 +96,14 @@ The unconditional models trained above can be used for the following tasks.
 #### Predict using Observation Self-Guidance
 Use the `guidance_experiment.py` script and `configs/guidance.yaml` config to run the forecasting experiments. Specific configurations used in the paper can be found in `configs/guidance/`.
 
+/home/shihongyue/unconditional-time-series-diffusion/configs/guidance/guidance_electricity.yaml
+
 Example commands:
 ```sh
 # Run observation self-guidance on the Solar dataset
 python bin/guidance_experiment.py -c configs/guidance/guidance_solar.yaml --ckpt /path/to/ckpt
+
+python /home/shihongyue/unconditional-time-series-diffusion/bin/guidance_experiment.py -c /home/shihongyue/unconditional-time-series-diffusion/configs/guidance/guidance_nasdaq100.yaml --ckpt /home/shihongyue/unconditional-time-series-diffusion/lightning_logs/version_11/best_checkpoint.ckpt
 
 # Run observation self-guidance on the KDDCup dataset
 python bin/guidance_experiment.py -c configs/guidance/guidance_kdd_cup.yaml --ckpt /path/to/ckpt
@@ -113,6 +117,8 @@ Example commands:
 # Refine predictions from the Linear model on the Solar dataset
 python bin/refinement_experiment.py -c configs/refinement/solar_nips-linear.yaml --ckpt /path/to/ckpt
 
+python /home/shihongyue/unconditional-time-series-diffusion/bin/refinement_experiment.py -c /home/shihongyue/unconditional-time-series-diffusion/configs/refinement/nasdaq100-deepar.yaml --ckpt /home/shihongyue/unconditional-time-series-diffusion/lightning_logs/version_11/best_checkpoint.ckpt
+
 # Refine predictions from the DeepAR model on the M4 dataset
 python bin/refinement_experiment.py -c configs/refinement/m4_hourly-deepar.yaml --ckpt /path/to/ckpt
 ```
@@ -124,8 +130,12 @@ Example commands:
 # TSTR on the Solar Dataset
 python bin/tstr_experiment.py -c configs/tstr/solar_nips.yaml --ckpt /path/to/ckpt
 
+# TSTR on the Solar Dataset
+python bin/tstr_experiment.py -c configs/tstr/solar_nips.yaml --ckpt /path/to/ckpt
+
+
 # TSTR on the KDDCup Dataset
-python bin/tstr_experiment.py -c configs/tstr/kdd_cup_2018_without_missing.yaml --ckpt /path/to/ckpt
+python /home/shihongyue/unconditional-time-series-diffusion/bin/tstr_experiment.py -c /home/shihongyue/unconditional-time-series-diffusion/configs/tstr/nasdaq100.yaml --ckpt /home/shihongyue/unconditional-time-series-diffusion/lightning_logs/version_11/best_checkpoint.ckpt
 ```
 
 ## BibTeX
