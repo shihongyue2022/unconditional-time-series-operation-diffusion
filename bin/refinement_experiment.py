@@ -178,7 +178,11 @@ def main(config: dict, log_dir: str):
         num_feat_dynamic_real=0,
         num_feat_static_cat=0,
         num_feat_static_real=0,
-        time_features=model.time_features,
+        time_features=(
+            getattr(model, "time_features", [])
+            if config.get("use_features", False)
+            else []
+        ),
         prediction_length=prediction_length,
     )
     transformed_data = transformation.apply(list(dataset.train), is_train=True)
@@ -187,13 +191,17 @@ def main(config: dict, log_dir: str):
         list(dataset.test), is_train=False
     )
 
+    lags_seq = getattr(model, "lags_seq", [0])
+    past_length = context_length + (
+        max(lags_seq) if getattr(model, "use_lags", False) else 0
+    )
     training_splitter = create_splitter(
-        past_length=context_length + max(model.lags_seq),
+        past_length=past_length,
         future_length=prediction_length,
         mode="train",
     )
     test_splitter = create_splitter(
-        past_length=context_length + max(model.lags_seq),
+        past_length=past_length,
         future_length=prediction_length,
         mode="test",
     )

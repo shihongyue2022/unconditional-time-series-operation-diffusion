@@ -219,18 +219,22 @@ class EvaluateCallback(Callback):
             ):
                 pl_module.backbone.load_state_dict(state_dict, strict=True)
                 pl_module.to(device)
+                lags_seq = getattr(self.model, "lags_seq", [0])
+                past_length = self.context_length + (
+                    max(lags_seq) if getattr(self.model, "use_lags", False) else 0
+                )
+                time_series_fields = [FieldName.OBSERVED_VALUES]
+                if getattr(self.model, "use_features", False):
+                    time_series_fields.append(FieldName.FEAT_TIME)
                 prediction_splitter = InstanceSplitter(
                     target_field=FieldName.TARGET,
                     is_pad_field=FieldName.IS_PAD,
                     start_field=FieldName.START,
                     forecast_start_field=FieldName.FORECAST_START,
                     instance_sampler=TestSplitSampler(),
-                    past_length=self.context_length + max(self.model.lags_seq),
+                    past_length=past_length,
                     future_length=self.prediction_length,
-                    time_series_fields=[
-                        FieldName.FEAT_TIME,
-                        FieldName.OBSERVED_VALUES,
-                    ],
+                    time_series_fields=time_series_fields,
                 )
                 og = self.Guidance(
                     self.model,

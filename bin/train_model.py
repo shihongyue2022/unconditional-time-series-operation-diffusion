@@ -85,8 +85,12 @@ def evaluate_guidance(
         transformed_testdata = transformation.apply(
             test_dataset, is_train=False
         )
+        lags_seq = getattr(model, "lags_seq", [0])
+        past_length = config["context_length"] + (
+            max(lags_seq) if getattr(model, "use_lags", False) else 0
+        )
         test_splitter = create_splitter(
-            past_length=config["context_length"] + max(model.lags_seq),
+            past_length=past_length,
             future_length=config["prediction_length"],
             mode="test",
         )
@@ -148,12 +152,20 @@ def main(config, log_dir):
         num_feat_dynamic_real=0,
         num_feat_static_cat=0,
         num_feat_static_real=0,
-        time_features=model.time_features,
+        time_features=(
+            getattr(model, "time_features", [])
+            if config.get("use_features", False)
+            else []
+        ),
         prediction_length=config["prediction_length"],
     )
 
+    lags_seq = getattr(model, "lags_seq", [0])
+    past_length = config["context_length"] + (
+        max(lags_seq) if getattr(model, "use_lags", False) else 0
+    )
     training_splitter = create_splitter(
-        past_length=config["context_length"] + max(model.lags_seq),
+        past_length=past_length,
         future_length=config["prediction_length"],
         mode="train",
     )

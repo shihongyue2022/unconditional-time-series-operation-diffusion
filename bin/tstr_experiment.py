@@ -244,8 +244,12 @@ def main(config: dict, log_dir: str, samples_path: str):
         prediction_length=prediction_length,
     )
     transformed_data = transformation.apply(list(dataset.train), is_train=True)
+    lags_seq = getattr(model, "lags_seq", [0])
+    past_length = context_length + (
+        max(lags_seq) if getattr(model, "use_lags", False) else 0
+    )
     training_splitter = create_splitter(
-        past_length=context_length + max(model.lags_seq),
+        past_length=past_length,
         future_length=prediction_length,
         mode="train",
     )
