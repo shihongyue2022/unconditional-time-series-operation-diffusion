@@ -20,7 +20,7 @@ from gluonts.dataset.field_names import FieldName
 import uncond_ts_diff.configs as diffusion_configs
 from uncond_ts_diff.dataset import get_gts_dataset
 from uncond_ts_diff.model.callback import EvaluateCallback
-from uncond_ts_diff.model import TSDiff
+from uncond_ts_diff.model import TSDiff, FourierDiffusion
 from uncond_ts_diff.sampler import DDPMGuidance, DDIMGuidance
 from uncond_ts_diff.utils import (
     create_transforms,
@@ -32,9 +32,15 @@ from uncond_ts_diff.utils import (
 
 guidance_map = {"ddpm": DDPMGuidance, "ddim": DDIMGuidance}
 
+model_map = {
+    "tsdiff": TSDiff,
+    "fourier": FourierDiffusion,
+}
+
 
 def create_model(config):
-    model = TSDiff(
+    Model = model_map[config["model_type"]]
+    model = Model(
         **getattr(diffusion_configs, config["diffusion_config"]),
         freq=config["freq"],
         use_features=config["use_features"],
