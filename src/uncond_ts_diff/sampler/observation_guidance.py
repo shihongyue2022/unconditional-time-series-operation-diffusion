@@ -137,9 +137,9 @@ class Guidance(torch.nn.Module):
         context_mask = past_observed_values[:, -self.model.context_length :]
         future_mask = torch.zeros_like(future_target)
         observation_mask = torch.cat([context_mask, future_mask], dim=1)
-        if self.model.use_lags:
+        if getattr(self.model, "use_lags", False):
             lagged_mask = lagged_sequence_values(
-                self.model.lags_seq,
+                getattr(self.model, "lags_seq", [0]),
                 prior_mask,
                 observation_mask,
                 dim=1,
