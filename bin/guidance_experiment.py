@@ -18,7 +18,7 @@ from uncond_ts_diff.utils import (
     filter_metrics,
     MaskInput,
 )
-from uncond_ts_diff.model import TSDiff
+from uncond_ts_diff.model import FourierDiffusion, TSDiff
 from uncond_ts_diff.dataset import get_gts_dataset
 from uncond_ts_diff.sampler import (
     DDPMGuidance,
@@ -30,7 +30,12 @@ guidance_map = {"ddpm": DDPMGuidance, "ddim": DDIMGuidance}
 
 
 def load_model(config):
-    model = TSDiff(
+    if config.get("model_type") == "fdiff":
+        Model = FourierDiffusion
+    else:
+        Model = TSDiff
+
+    model = Model(
         **getattr(
             diffusion_configs,
             config.get("diffusion_config", "diffusion_small_config"),

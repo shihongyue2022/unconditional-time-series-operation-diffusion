@@ -1,5 +1,6 @@
 # Model & checkpoint parameters
 dataset: solar_nips
+model_type: tsdiff  # use "fdiff" for FourierDiffusion
 freq: H
 device: cuda:0
 ckpt: ckpts/forecasting/solar_nips/649_.ckpt

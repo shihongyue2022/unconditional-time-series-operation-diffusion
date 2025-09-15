@@ -129,6 +129,7 @@ Example commands:
 ```sh
 # Run observation self-guidance on the Solar dataset
 python bin/guidance_experiment.py -c configs/guidance/guidance_solar.yaml --ckpt /path/to/ckpt
+# Add `--model_type fdiff` when evaluating FourierDiffusion checkpoints
 
 python /home/shihongyue/unconditional-time-series-diffusion/bin/guidance_experiment.py -c /home/shihongyue/unconditional-time-series-diffusion/configs/guidance/guidance_nasdaq100.yaml --ckpt /home/shihongyue/unconditional-time-series-diffusion/lightning_logs/version_11/best_checkpoint.ckpt
 
