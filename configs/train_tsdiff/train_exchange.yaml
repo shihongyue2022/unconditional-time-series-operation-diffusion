@@ -1,4 +1,5 @@
 model: unconditional
+model_type: tsdiff
 diffusion_config: diffusion_small_config
 normalization: mean
 use_features: False
