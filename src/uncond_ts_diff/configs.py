@@ -68,6 +68,15 @@ residual_block_s4_backbone_large = {
     "residual_block": "s4",
 }
 
+fourier_backbone = {
+    "input_dim": 1,
+    "hidden_dim": 64,
+    "output_dim": 1,
+    "step_emb": 128,
+    "num_residual_blocks": 3,
+    "residual_block": "s4",
+}
+
 
 diffusion_config = {
     "backbone_parameters": residual_block_s4_backbone,
@@ -110,3 +119,28 @@ diffusion_large_config = {
     "timesteps": 100,
     "diffusion_scheduler": linear_beta_schedule,
 }
+
+fourier_diffusion_config = {
+    "backbone_parameters": fourier_backbone,
+    "timesteps": 100,
+    "diffusion_scheduler": linear_beta_schedule,
+}
+
+__all__ = [
+    "residual_block_s4_backbone",
+    "residual_block_s4_backbone_smallv2",
+    "residual_block_s4_backbone_small",
+    "residual_block_s4_backbone_small_dropout01",
+    "residual_block_s4_backbone_small_dropout02",
+    "residual_block_s4_backbone_small_dropout03",
+    "residual_block_s4_backbone_large",
+    "fourier_backbone",
+    "diffusion_config",
+    "diffusion_small_config",
+    "diffusion_small_configv2",
+    "diffusion_small_config_dropout",
+    "diffusion_small_config_dropout02",
+    "diffusion_small_config_dropout03",
+    "diffusion_large_config",
+    "fourier_diffusion_config",
+]
