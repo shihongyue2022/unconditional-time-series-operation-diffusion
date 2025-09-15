@@ -1,0 +1,2 @@
+model_type: fourier
+diffusion_config: fourier_diffusion_config
