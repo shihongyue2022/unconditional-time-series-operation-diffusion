@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 from .diffusion.tsdiff import TSDiff
 from .diffusion.tsdiff_cond import TSDiffCond
-from .fdiff.fourier_diffusion import FourierDiffusion
+from .fdiff import FourierDiffusion
 from .linear._estimator import LinearEstimator
 
 __all__ = [
